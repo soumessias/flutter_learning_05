@@ -6,29 +6,32 @@ class ObjectiveItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      margin: const EdgeInsets.only(left: 20, right: 20, top: 5, bottom: 5),
+      margin: const EdgeInsets.only(left: 20, right: 20, top: 10, bottom: 10),
       color: Colors.cyanAccent.shade700,
       child: ListTile(
-        // leading: ,
-        // leading: Container(
-        //   height: 40,
-        //   width: 50,
-        //   alignment: Alignment.center,
-        //   decoration: const BoxDecoration(
-        //     borderRadius: BorderRadius.all(Radius.circular(10)),
-        //     color: Colors.white,
-        //   ),
-        //   child: FittedBox(
-        //     fit: BoxFit.fitWidth,
-        //     child: Text(
-        //       "0/100",
-        //       style: TextStyle(
-        //           fontWeight: FontWeight.bold,
-        //           color: Colors.cyanAccent.shade700),
-        //     ),
-        //   ),
-        // ),
-        title: Text(
+        visualDensity: const VisualDensity(vertical: 3),
+        leading: Stack(
+          alignment: Alignment.center,
+          children: [
+            SizedBox(
+              height: 45,
+              width: 45,
+              child: CircularProgressIndicator(
+                strokeWidth: 5,
+                value: 0.3,
+                backgroundColor: Colors.cyan.shade300,
+                color: Colors.white,
+              ),
+            ),
+            const Text(
+              "0/100",
+              style: TextStyle(
+                color: Colors.white,
+              ),
+            )
+          ],
+        ),
+        title: const Text(
           "Objetivo 1",
         ),
         trailing: IconButton(
