@@ -1,5 +1,5 @@
-import 'package:ObjectivesManager/pages/objectives_page.dart';
-import 'package:ObjectivesManager/utils/app_routes.dart';
+import 'package:Objectives_Manager/pages/objectives_page.dart';
+import 'package:Objectives_Manager/utils/app_routes.dart';
 
 import '../pages/login_page.dart';
 import 'package:flutter/material.dart';
@@ -19,8 +19,8 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.cyan,
       ),
       routes: {
-        AppRoutes.loginPage: (context) => LoginPage(),
-        AppRoutes.objectivesPage: (context) => ObjectivesPage()
+        AppRoutes.loginPage: (context) => const LoginPage(),
+        AppRoutes.objectivesPage: (context) => const ObjectivesPage()
       },
     );
   }

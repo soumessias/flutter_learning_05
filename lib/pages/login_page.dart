@@ -1,5 +1,5 @@
-import 'package:ObjectivesManager/components/my_text_field.dart';
-import 'package:ObjectivesManager/utils/app_routes.dart';
+import 'package:Objectives_Manager/components/my_text_field.dart';
+import 'package:Objectives_Manager/utils/app_routes.dart';
 import 'package:flutter/material.dart';
 
 class LoginPage extends StatelessWidget {
