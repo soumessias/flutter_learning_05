@@ -1,8 +1,10 @@
+import 'package:Objectives_Manager/models/objective.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 class ObjectiveItem extends StatelessWidget {
-  const ObjectiveItem({super.key});
+  final Objective objective;
+  const ObjectiveItem({super.key, required this.objective});
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +19,9 @@ class ObjectiveItem extends StatelessWidget {
           gradient: LinearGradient(
             colors: [
               Colors.white,
-              Colors.cyanAccent.shade700,
+              objective.currentValue / objective.goal == 1
+                  ? Colors.greenAccent
+                  : Colors.cyanAccent.shade700,
             ],
           ),
         ),
@@ -31,14 +35,16 @@ class ObjectiveItem extends StatelessWidget {
                 width: 45,
                 child: CircularProgressIndicator(
                   strokeWidth: 5,
-                  value: 0.3,
+                  value: objective.currentValue / objective.goal,
                   backgroundColor: Colors.cyan.shade100,
-                  color: Colors.cyan.shade400,
+                  color: objective.currentValue / objective.goal == 1
+                      ? Colors.greenAccent
+                      : Colors.cyan.shade400,
                 ),
               ),
-              const Text(
-                "30%",
-                style: TextStyle(
+              Text(
+                "${(objective.currentValue / objective.goal * 100).toStringAsFixed(0)}%",
+                style: const TextStyle(
                   color: Colors.black,
                   fontWeight: FontWeight.bold,
                 ),
@@ -50,9 +56,9 @@ class ObjectiveItem extends StatelessWidget {
           title: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text(
-                "Objetivo 1",
-                style: TextStyle(
+              Text(
+                objective.name,
+                style: const TextStyle(
                   fontWeight: FontWeight.bold,
                 ),
               ),
@@ -65,7 +71,7 @@ class ObjectiveItem extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    DateFormat('dd-MM-yyyy').format(DateTime.now()),
+                    DateFormat('dd-MM-yyyy').format(objective.updatedAt),
                     style: const TextStyle(
                       fontSize: 10,
                     ),
@@ -74,15 +80,15 @@ class ObjectiveItem extends StatelessWidget {
               )
             ],
           ),
-          trailing: Container(
-            width: 130,
+          trailing: SizedBox(
+            // width: 135,
             height: 45,
             child: Card(
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(20),
               ),
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   IconButton(
@@ -92,15 +98,13 @@ class ObjectiveItem extends StatelessWidget {
                       color: Colors.black,
                     ),
                   ),
-                  const SizedBox(
-                    width: 25,
-                    child: FittedBox(
-                      fit: BoxFit.fitWidth,
-                      child: Text(
-                        "100",
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                        ),
+                  Container(
+                    width: 26,
+                    alignment: Alignment.center,
+                    child: Text(
+                      objective.currentValue.toString(),
+                      style: const TextStyle(
+                        fontWeight: FontWeight.bold,
                       ),
                     ),
                   ),

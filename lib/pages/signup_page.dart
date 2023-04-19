@@ -1,9 +1,10 @@
-import 'package:Objectives_Manager/components/my_text_field.dart';
-import 'package:Objectives_Manager/utils/app_routes.dart';
 import 'package:flutter/material.dart';
 
-class LoginPage extends StatelessWidget {
-  const LoginPage({super.key});
+import '../components/my_text_field.dart';
+import '../utils/app_routes.dart';
+
+class SignUpPage extends StatelessWidget {
+  const SignUpPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -15,49 +16,35 @@ class LoginPage extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         shadowColor: Colors.transparent,
+        leading: IconButton(
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+          icon: const Icon(
+            Icons.arrow_back_ios,
+            color: Colors.white,
+          ),
+        ),
       ),
       body: Column(
         children: [
           Container(
             width: double.infinity,
-            height: height * 0.4,
-            padding: const EdgeInsets.fromLTRB(30, 50, 100, 50),
-            child: FittedBox(
+            height: height * 0.15,
+            padding: const EdgeInsets.fromLTRB(100, 0, 100, 35),
+            child: const FittedBox(
               fit: BoxFit.fitWidth,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: const [
-                  Text(
-                    "Bem vindo ao..",
-                    style: TextStyle(
-                      fontSize: 5,
-                      color: Colors.white,
-                    ),
-                  ),
-                  Text(
-                    "Meus \nObjetivos",
-                    maxLines: 2,
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  Text(
-                    "..app!",
-                    maxLines: 2,
-                    textAlign: TextAlign.end,
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 5,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ],
+              child: Text(
+                "Signup",
+                style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
             ),
           ),
           Container(
-            height: height * 0.6,
+            height: height * 0.85,
             width: double.infinity,
             padding: const EdgeInsets.all(30),
             decoration: const BoxDecoration(
@@ -68,24 +55,33 @@ class LoginPage extends StatelessWidget {
               ),
             ),
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Text(
-                  "Login",
-                  style: TextStyle(
-                    fontSize: 30,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.cyanAccent.shade700,
-                  ),
-                ),
                 const SizedBox(
                   height: 20,
                 ),
                 const Text(
+                  "Apelido",
+                  style: TextStyle(
+                    fontSize: 20,
+                  ),
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                const MyTextField(
+                  hintText: 'Como deseja ser chamado?',
+                  prefixIcon: Icon(Icons.person_2),
+                  obscureText: false,
+                ),
+                const SizedBox(
+                  height: 30,
+                ),
+                const Text(
                   "Email",
                   style: TextStyle(
-                      // fontWeight: FontWeight.bold,
-                      ),
+                    fontSize: 20,
+                  ),
                 ),
                 const SizedBox(
                   height: 10,
@@ -101,8 +97,8 @@ class LoginPage extends StatelessWidget {
                 const Text(
                   "Senha",
                   style: TextStyle(
-                      // fontWeight: FontWeight.bold,
-                      ),
+                    fontSize: 20,
+                  ),
                 ),
                 const SizedBox(
                   height: 10,
@@ -113,12 +109,22 @@ class LoginPage extends StatelessWidget {
                   obscureText: true,
                 ),
                 const SizedBox(
+                  height: 20,
+                ),
+                CheckboxListTile(
+                  value: true,
+                  // controlAffinity: ListTileControlAffinity.leading,
+                  onChanged: (bool? value) {},
+                  title: const Text(
+                      "Concorda com os termos do app Meus Objetivos?"),
+                ),
+                const SizedBox(
                   height: 25,
                 ),
                 GestureDetector(
                   onTap: () {
-                    Navigator.of(context)
-                        .pushReplacementNamed(AppRoutes.objectivesPage);
+                    // Navigator.of(context)
+                    // .pushReplacementNamed(AppRoutes.objectivesPage);
                   },
                   child: Container(
                     width: double.infinity,
@@ -132,7 +138,7 @@ class LoginPage extends StatelessWidget {
                       color: Colors.cyanAccent.shade700,
                     ),
                     child: const Text(
-                      "Entrar",
+                      "Cadastrar",
                       style: TextStyle(
                         fontSize: 20,
                         color: Colors.white,
@@ -141,18 +147,6 @@ class LoginPage extends StatelessWidget {
                     ),
                   ),
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const Text("Não possui uma conta?"),
-                    TextButton(
-                      onPressed: () {
-                        Navigator.of(context).pushNamed(AppRoutes.signupPage);
-                      },
-                      child: const Text("Cadastre-se aqui!"),
-                    )
-                  ],
-                )
               ],
             ),
           )
