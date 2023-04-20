@@ -1,10 +1,10 @@
 class Objective {
-  final String id;
-  final String name;
-  final String description;
-  final int currentValue;
-  final int goal;
-  final DateTime updatedAt;
+  String id;
+  String name;
+  String description;
+  int currentValue;
+  int goal;
+  DateTime updatedAt;
 
   Objective({
     required this.id,

@@ -3,6 +3,8 @@ import 'package:Objectives_Manager/models/objective_list.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../components/new_objective_modal.dart';
+
 class ObjectivesPage extends StatelessWidget {
   const ObjectivesPage({super.key});
 
@@ -46,7 +48,17 @@ class ObjectivesPage extends StatelessWidget {
           ),
           actions: [
             IconButton(
-              onPressed: () {},
+              splashRadius: 20,
+              splashColor: Colors.white,
+              highlightColor: Colors.cyanAccent.shade700.withOpacity(0.3),
+              onPressed: () {
+                showModalBottomSheet<void>(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return const NewObjectiveModal();
+                  },
+                );
+              },
               icon: Icon(
                 Icons.add,
                 size: 30,
@@ -56,6 +68,9 @@ class ObjectivesPage extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.only(right: 12),
               child: IconButton(
+                splashRadius: 20,
+                splashColor: Colors.white,
+                highlightColor: Colors.cyanAccent.shade700.withOpacity(0.3),
                 onPressed: () {},
                 icon: Icon(
                   Icons.settings,
@@ -69,7 +84,7 @@ class ObjectivesPage extends StatelessWidget {
         body: ListView.builder(
           itemCount: objectives.itemsCount,
           itemBuilder: (context, index) =>
-              ObjectiveItem(objective: objectives.items[index]),
+              ObjectiveItem(objectives: objectives, objectiveListIndex: index),
         ),
         extendBody: true,
         // bottomNavigationBar: ClipRRect(

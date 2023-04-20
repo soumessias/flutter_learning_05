@@ -149,6 +149,10 @@ class LoginPage extends StatelessWidget {
                       onPressed: () {
                         Navigator.of(context).pushNamed(AppRoutes.signupPage);
                       },
+                      style: ButtonStyle(
+                        overlayColor:
+                            MaterialStateProperty.all(Colors.transparent),
+                      ),
                       child: const Text("Cadastre-se aqui!"),
                     )
                   ],

@@ -31,7 +31,7 @@ final dummyObjectives = [
     name: 'Criar um APP',
     description:
         'Conseguir uma segunda renda e até mesmo dar meus primeiros passos no empreendedorismo de 1 pessoa só.',
-    currentValue: 1,
+    currentValue: 0,
     goal: 1,
     updatedAt: DateTime.parse('2023-01-01'),
   ),

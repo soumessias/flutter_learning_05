@@ -1,13 +1,16 @@
-import 'package:Objectives_Manager/models/objective.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import '../models/objective_list.dart';
 
 class ObjectiveItem extends StatelessWidget {
-  final Objective objective;
-  const ObjectiveItem({super.key, required this.objective});
+  final ObjectiveList objectives;
+  final int objectiveListIndex;
+  const ObjectiveItem(
+      {super.key, required this.objectives, required this.objectiveListIndex});
 
   @override
   Widget build(BuildContext context) {
+    final objective = objectives.items[objectiveListIndex];
     return Card(
       margin: const EdgeInsets.only(left: 20, right: 20, top: 10, bottom: 10),
       shape: RoundedRectangleBorder(
@@ -20,8 +23,8 @@ class ObjectiveItem extends StatelessWidget {
             colors: [
               Colors.white,
               objective.currentValue / objective.goal == 1
-                  ? Colors.greenAccent
-                  : Colors.cyanAccent.shade700,
+                  ? Colors.green.shade300
+                  : Colors.cyanAccent.shade700.withOpacity(0.5),
             ],
           ),
         ),
@@ -38,7 +41,7 @@ class ObjectiveItem extends StatelessWidget {
                   value: objective.currentValue / objective.goal,
                   backgroundColor: Colors.cyan.shade100,
                   color: objective.currentValue / objective.goal == 1
-                      ? Colors.greenAccent
+                      ? Colors.green.shade200
                       : Colors.cyan.shade400,
                 ),
               ),
@@ -92,10 +95,13 @@ class ObjectiveItem extends StatelessWidget {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   IconButton(
-                    onPressed: () {},
+                    splashRadius: 18,
+                    onPressed: () {
+                      objectives.decreaseObjective(objective.id);
+                    },
                     icon: const Icon(
                       Icons.remove_circle_rounded,
-                      color: Colors.black,
+                      color: Colors.blueGrey,
                     ),
                   ),
                   Container(
@@ -109,10 +115,15 @@ class ObjectiveItem extends StatelessWidget {
                     ),
                   ),
                   IconButton(
-                    onPressed: () {},
-                    icon: const Icon(
+                    splashRadius: 18,
+                    onPressed: () {
+                      objectives.increaseObjective(objective.id);
+                    },
+                    icon: Icon(
                       Icons.add_circle,
-                      color: Colors.cyan,
+                      color: objective.currentValue / objective.goal == 1
+                          ? Colors.green.shade300
+                          : Colors.cyan,
                     ),
                   ),
                 ],
