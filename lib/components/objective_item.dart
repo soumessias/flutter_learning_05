@@ -65,18 +65,21 @@ class ObjectiveItem extends StatelessWidget {
                   fontWeight: FontWeight.bold,
                 ),
               ),
+              const SizedBox(
+                height: 5,
+              ),
               Row(
                 children: [
                   const Text(
                     "Atualizado:",
                     style: TextStyle(
-                      fontSize: 10,
+                      fontSize: 11,
                     ),
                   ),
                   Text(
                     DateFormat('dd-MM-yyyy').format(objective.updatedAt),
                     style: const TextStyle(
-                      fontSize: 10,
+                      fontSize: 11,
                     ),
                   )
                 ],
@@ -105,7 +108,7 @@ class ObjectiveItem extends StatelessWidget {
                     ),
                   ),
                   Container(
-                    width: 26,
+                    width: 29,
                     alignment: Alignment.center,
                     child: Text(
                       objective.currentValue.toString(),

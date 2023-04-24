@@ -1,10 +1,11 @@
+import 'dart:convert';
 import 'package:Objectives_Manager/models/objective.dart';
-import 'package:Objectives_Manager/utils/dummy_data.dart';
+import 'package:Objectives_Manager/utils/constants.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
+import 'package:http/http.dart';
 
 class ObjectiveList with ChangeNotifier {
-  final List<Objective> _objectiveList = dummyObjectives;
+  final List<Objective> _objectiveList = [];
 
   List<Objective> get items {
     return [..._objectiveList];
@@ -14,8 +15,50 @@ class ObjectiveList with ChangeNotifier {
     return _objectiveList.length;
   }
 
-  void addObjective(Objective objective) {
-    _objectiveList.add(objective);
+  Future<void> loadObjectives() async {
+    final response = await get(Uri.parse(Constants.firebaseUrl));
+    Map<String, dynamic> data = jsonDecode(response.body);
+    if (response.body == 'null') {
+      return;
+    }
+    data.forEach(
+      (objectiveId, objectiveValue) {
+        _objectiveList.add(Objective(
+          id: objectiveId,
+          name: objectiveValue['name'],
+          currentValue: objectiveValue['currentValue'],
+          goal: objectiveValue['goal'],
+          updatedAt: DateTime.parse(objectiveValue['updatedAt']),
+          createdAt: DateTime.parse(objectiveValue['createdAt']),
+        ));
+      },
+    );
+    notifyListeners();
+  }
+
+  Future<void> addObjective(Objective objective) async {
+    final response = await post(
+      Uri.parse(Constants.firebaseUrl),
+      body: jsonEncode({
+        "name": objective.name,
+        "currentValue": objective.currentValue,
+        "goal": objective.goal,
+        "updatedAt": objective.updatedAt.toString(),
+        "createdAt": objective.createdAt.toString()
+      }),
+    );
+
+    final id = jsonDecode(response.body)['name'];
+    _objectiveList.add(
+      Objective(
+        id: id,
+        name: objective.name,
+        currentValue: objective.currentValue,
+        goal: objective.goal,
+        updatedAt: objective.updatedAt,
+        createdAt: objective.createdAt,
+      ),
+    );
     notifyListeners();
   }
 

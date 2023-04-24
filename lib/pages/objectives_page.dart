@@ -3,10 +3,30 @@ import 'package:Objectives_Manager/models/objective_list.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../components/new_objective_modal.dart';
+import '../modals/new_objective_modal.dart';
 
-class ObjectivesPage extends StatelessWidget {
+class ObjectivesPage extends StatefulWidget {
   const ObjectivesPage({super.key});
+
+  @override
+  State<ObjectivesPage> createState() => _ObjectivesPageState();
+}
+
+class _ObjectivesPageState extends State<ObjectivesPage> {
+  bool isLoading = true;
+
+  @override
+  void initState() {
+    super.initState();
+    Provider.of<ObjectiveList>(context, listen: false)
+        .loadObjectives()
+        .catchError((error) {})
+        .then((value) {
+      setState(() {
+        isLoading = false;
+      });
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -52,10 +72,15 @@ class ObjectivesPage extends StatelessWidget {
               splashColor: Colors.white,
               highlightColor: Colors.cyanAccent.shade700.withOpacity(0.3),
               onPressed: () {
-                showModalBottomSheet<void>(
+                showModalBottomSheet(
+                  isScrollControlled: true,
                   context: context,
                   builder: (BuildContext context) {
-                    return const NewObjectiveModal();
+                    return Padding(
+                      padding: EdgeInsets.only(
+                          bottom: MediaQuery.of(context).viewInsets.bottom),
+                      child: NewObjectiveModal(),
+                    );
                   },
                 );
               },
@@ -73,7 +98,7 @@ class ObjectivesPage extends StatelessWidget {
                 highlightColor: Colors.cyanAccent.shade700.withOpacity(0.3),
                 onPressed: () {},
                 icon: Icon(
-                  Icons.settings,
+                  Icons.filter_alt,
                   size: 25,
                   color: Colors.cyanAccent.shade700,
                 ),
@@ -81,42 +106,18 @@ class ObjectivesPage extends StatelessWidget {
             )
           ],
         ),
-        body: ListView.builder(
-          itemCount: objectives.itemsCount,
-          itemBuilder: (context, index) =>
-              ObjectiveItem(objectives: objectives, objectiveListIndex: index),
-        ),
+        body: isLoading
+            ? const Center(
+                child: CircularProgressIndicator(
+                  strokeWidth: 10,
+                ),
+              )
+            : ListView.builder(
+                itemCount: objectives.itemsCount,
+                itemBuilder: (context, index) => ObjectiveItem(
+                    objectives: objectives, objectiveListIndex: index),
+              ),
         extendBody: true,
-        // bottomNavigationBar: ClipRRect(
-        //   borderRadius: const BorderRadius.only(
-        //     topLeft: Radius.circular(100),
-        //     topRight: Radius.circular(100),
-        //     bottomLeft: Radius.circular(100),
-        //     bottomRight: Radius.circular(100),
-        //   ),
-        //   child: BottomNavigationBar(
-        //     iconSize: 40,
-        //     unselectedItemColor: Colors.white,
-        //     selectedItemColor: Colors.white,
-        //     backgroundColor: Colors.cyanAccent.shade700,
-        //     selectedFontSize: 15,
-        //     unselectedFontSize: 15,
-        //     items: const [
-        //       BottomNavigationBarItem(
-        //         label: "Objetivos",
-        //         icon: Icon(
-        //           Icons.check,
-        //         ),
-        //       ),
-        //       BottomNavigationBarItem(
-        //         label: "Perfil",
-        //         icon: Icon(
-        //           Icons.person_2_rounded,
-        //         ),
-        //       ),
-        //     ],
-        //   ),
-        // ),
       ),
     );
   }
