@@ -1,17 +1,15 @@
 import 'package:flutter/material.dart';
 import '../components/login_text_field.dart';
 
-class SignUpPage extends StatelessWidget {
-  const SignUpPage({super.key});
+class PasswordRecoveryPage extends StatelessWidget {
+  const PasswordRecoveryPage({super.key});
 
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height -
         AppBar().preferredSize.height -
         MediaQuery.of(context).padding.top;
-    final TextEditingController userNickname = TextEditingController();
-    final TextEditingController authEmail = TextEditingController();
-    final TextEditingController authPass = TextEditingController();
+    final TextEditingController recoveryEmail = TextEditingController();
     return Scaffold(
       backgroundColor: Colors.cyanAccent.shade700,
       appBar: AppBar(
@@ -31,12 +29,13 @@ class SignUpPage extends StatelessWidget {
         children: [
           Container(
             width: double.infinity,
-            height: height * 0.15,
-            padding: const EdgeInsets.fromLTRB(100, 0, 100, 35),
+            height: height * 0.3,
+            padding: const EdgeInsets.fromLTRB(60, 0, 60, 35),
             child: const FittedBox(
               fit: BoxFit.fitWidth,
               child: Text(
-                "Signup",
+                "Recuperação\n de Senha",
+                textAlign: TextAlign.center,
                 style: TextStyle(
                   color: Colors.white,
                   fontWeight: FontWeight.bold,
@@ -45,7 +44,7 @@ class SignUpPage extends StatelessWidget {
             ),
           ),
           Container(
-            height: height * 0.85,
+            height: height * 0.7,
             width: double.infinity,
             padding: const EdgeInsets.all(30),
             decoration: const BoxDecoration(
@@ -59,31 +58,7 @@ class SignUpPage extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 const SizedBox(
-                  height: 20,
-                ),
-                const Text(
-                  "Apelido",
-                  style: TextStyle(
-                    fontSize: 20,
-                  ),
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                LoginTextField(
-                  controller: userNickname,
-                  hintText: 'Como deseja ser chamado?',
-                  prefixIcon: const Icon(Icons.person_2),
-                  obscureText: false,
-                  validatorFunction: (nickname) {
-                    if (nickname!.isEmpty) {
-                      return 'Nome inválido';
-                    }
-                    return null;
-                  },
-                ),
-                const SizedBox(
-                  height: 30,
+                  height: 50,
                 ),
                 const Text(
                   "Email",
@@ -92,10 +67,10 @@ class SignUpPage extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(
-                  height: 10,
+                  height: 20,
                 ),
                 LoginTextField(
-                  controller: authEmail,
+                  controller: recoveryEmail,
                   hintText: 'Digite seu email',
                   prefixIcon: const Icon(Icons.email),
                   obscureText: false,
@@ -108,40 +83,6 @@ class SignUpPage extends StatelessWidget {
                 ),
                 const SizedBox(
                   height: 30,
-                ),
-                const Text(
-                  "Senha",
-                  style: TextStyle(
-                    fontSize: 20,
-                  ),
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                LoginTextField(
-                  controller: authPass,
-                  hintText: '***************',
-                  prefixIcon: const Icon(Icons.lock),
-                  obscureText: true,
-                  validatorFunction: (pass) {
-                    if (pass!.isEmpty) {
-                      return 'Senha inválida';
-                    }
-                    return null;
-                  },
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                CheckboxListTile(
-                  value: true,
-                  // controlAffinity: ListTileControlAffinity.leading,
-                  onChanged: (bool? value) {},
-                  title: const Text(
-                      "Concorda com os termos do app Meus Objetivos?"),
-                ),
-                const SizedBox(
-                  height: 25,
                 ),
                 GestureDetector(
                   onTap: () {
@@ -160,7 +101,7 @@ class SignUpPage extends StatelessWidget {
                       color: Colors.cyanAccent.shade700,
                     ),
                     child: const Text(
-                      "Cadastrar",
+                      "Lembrar",
                       style: TextStyle(
                         fontSize: 20,
                         color: Colors.white,

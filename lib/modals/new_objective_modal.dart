@@ -1,14 +1,11 @@
 import 'dart:math';
-
 import 'package:Objectives_Manager/models/objective.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
 import '../models/objective_list.dart';
-import '../utils/app_routes.dart';
 
 class NewObjectiveModal extends StatefulWidget {
-  NewObjectiveModal({super.key});
+  const NewObjectiveModal({super.key});
 
   @override
   State<NewObjectiveModal> createState() => _NewObjectiveModalState();

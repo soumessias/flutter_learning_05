@@ -2,7 +2,6 @@ import 'package:Objectives_Manager/components/objective_item.dart';
 import 'package:Objectives_Manager/models/objective_list.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
 import '../modals/new_objective_modal.dart';
 
 class ObjectivesPage extends StatefulWidget {
@@ -79,7 +78,7 @@ class _ObjectivesPageState extends State<ObjectivesPage> {
                     return Padding(
                       padding: EdgeInsets.only(
                           bottom: MediaQuery.of(context).viewInsets.bottom),
-                      child: NewObjectiveModal(),
+                      child: const NewObjectiveModal(),
                     );
                   },
                 );

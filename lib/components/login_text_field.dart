@@ -1,25 +1,25 @@
 import 'package:flutter/material.dart';
 
-class MyTextField extends StatelessWidget {
-  // final controller;
+class LoginTextField extends StatelessWidget {
+  final TextEditingController controller;
   final String hintText;
   final bool obscureText;
   final Icon prefixIcon;
-  // final Function()? onChanged;
+  final String? Function(String?)? validatorFunction;
 
-  const MyTextField({
+  const LoginTextField({
     super.key,
-    //   required this.controller,
+    required this.controller,
     required this.hintText,
     required this.obscureText,
     required this.prefixIcon,
-    //   this.onChanged,
+    required this.validatorFunction,
   });
 
   @override
   Widget build(BuildContext context) {
-    return TextField(
-      // controller: controller,
+    return TextFormField(
+      controller: controller,
       obscureText: obscureText,
       cursorColor: Colors.cyanAccent.shade700,
       decoration: InputDecoration(
@@ -34,6 +34,7 @@ class MyTextField extends StatelessWidget {
         prefixIconColor: Colors.cyanAccent.shade700,
         filled: true,
       ),
+      validator: validatorFunction,
     );
   }
 }

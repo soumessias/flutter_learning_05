@@ -1,5 +1,6 @@
 import 'package:Objectives_Manager/models/objective_list.dart';
 import 'package:Objectives_Manager/pages/objectives_page.dart';
+import 'package:Objectives_Manager/pages/pass_recovery_page.dart';
 import 'package:Objectives_Manager/pages/signup_page.dart';
 import 'package:Objectives_Manager/utils/app_routes.dart';
 import 'package:provider/provider.dart';
@@ -30,6 +31,7 @@ class MyApp extends StatelessWidget {
           AppRoutes.loginPage: (context) => const LoginPage(),
           AppRoutes.objectivesPage: (context) => const ObjectivesPage(),
           AppRoutes.signupPage: (context) => const SignUpPage(),
+          AppRoutes.passRecoveryPage: (context) => const PasswordRecoveryPage(),
         },
       ),
     );
