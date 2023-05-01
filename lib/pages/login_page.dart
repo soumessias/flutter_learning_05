@@ -7,9 +7,12 @@ import 'package:provider/provider.dart';
 import '../models/auth.dart';
 
 class LoginPage extends StatelessWidget {
-  const LoginPage({super.key});
+  LoginPage({super.key});
 
   static final formKey = GlobalKey<FormState>();
+
+  final TextEditingController authEmail = TextEditingController();
+  final TextEditingController authPass = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -19,9 +22,6 @@ class LoginPage extends StatelessWidget {
       'login': '',
       'password': '',
     };
-
-    final TextEditingController authEmail = TextEditingController();
-    final TextEditingController authPass = TextEditingController();
 
     bool isLoading = false;
 

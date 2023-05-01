@@ -6,16 +6,17 @@ import '../exceptions/auth_exception.dart';
 import '../utils/app_routes.dart';
 
 class PasswordRecoveryPage extends StatelessWidget {
-  const PasswordRecoveryPage({super.key});
+  PasswordRecoveryPage({super.key});
 
   static final formKey = GlobalKey<FormState>();
+
+  final TextEditingController recoveryEmail = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height -
         AppBar().preferredSize.height -
         MediaQuery.of(context).padding.top;
-    final TextEditingController recoveryEmail = TextEditingController();
     Auth auth = Provider.of(context, listen: false);
     return Padding(
       padding:

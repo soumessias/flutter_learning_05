@@ -32,10 +32,10 @@ class MyApp extends StatelessWidget {
           primarySwatch: Colors.cyan,
         ),
         routes: {
-          AppRoutes.loginPage: (context) => const LoginPage(),
+          AppRoutes.loginPage: (context) => LoginPage(),
           AppRoutes.objectivesPage: (context) => const ObjectivesPage(),
-          AppRoutes.signupPage: (context) => const SignUpPage(),
-          AppRoutes.passRecoveryPage: (context) => const PasswordRecoveryPage(),
+          AppRoutes.signupPage: (context) => SignUpPage(),
+          AppRoutes.passRecoveryPage: (context) => PasswordRecoveryPage(),
         },
       ),
     );

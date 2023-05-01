@@ -6,19 +6,19 @@ import '../components/login_text_field.dart';
 import '../utils/app_routes.dart';
 
 class SignUpPage extends StatelessWidget {
-  const SignUpPage({super.key});
+  SignUpPage({super.key});
 
   static final formKey = GlobalKey<FormState>();
+
+  final TextEditingController userNickname = TextEditingController();
+  final TextEditingController authEmail = TextEditingController();
+  final TextEditingController authPass = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height -
         AppBar().preferredSize.height -
         MediaQuery.of(context).padding.top;
-
-    final TextEditingController userNickname = TextEditingController();
-    final TextEditingController authEmail = TextEditingController();
-    final TextEditingController authPass = TextEditingController();
 
     final Auth auth = Provider.of(context, listen: false);
 
