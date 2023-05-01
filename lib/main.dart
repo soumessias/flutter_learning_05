@@ -1,3 +1,4 @@
+import 'package:Objectives_Manager/models/auth.dart';
 import 'package:Objectives_Manager/models/objective_list.dart';
 import 'package:Objectives_Manager/pages/objectives_page.dart';
 import 'package:Objectives_Manager/pages/pass_recovery_page.dart';
@@ -20,6 +21,9 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(
           create: (_) => ObjectiveList(),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => Auth(),
         ),
       ],
       child: MaterialApp(

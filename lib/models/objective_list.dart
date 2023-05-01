@@ -16,7 +16,7 @@ class ObjectiveList with ChangeNotifier {
   }
 
   Future<void> loadObjectives() async {
-    final response = await get(Uri.parse(Constants.firebaseUrl));
+    final response = await get(Uri.parse(Constants.OBJECTIVES_DATABASE_PATH));
     Map<String, dynamic> data = jsonDecode(response.body);
     if (response.body == 'null') {
       return;
@@ -38,7 +38,7 @@ class ObjectiveList with ChangeNotifier {
 
   Future<void> addObjective(Objective objective) async {
     final response = await post(
-      Uri.parse(Constants.firebaseUrl),
+      Uri.parse(Constants.OBJECTIVES_DATABASE_PATH),
       body: jsonEncode({
         "name": objective.name,
         "currentValue": objective.currentValue,
