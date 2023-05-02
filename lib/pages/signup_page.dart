@@ -46,7 +46,7 @@ class SignUpPage extends StatelessWidget {
             children: [
               Container(
                 width: double.infinity,
-                height: height * 0.15,
+                height: height * 0.2,
                 padding: const EdgeInsets.fromLTRB(100, 0, 100, 35),
                 child: const FittedBox(
                   fit: BoxFit.fitWidth,
@@ -170,13 +170,21 @@ class SignUpPage extends StatelessWidget {
                         onTap: () async {
                           if (formKey.currentState!.validate()) {
                             try {
-                              await auth.signUp(authEmail.text, authPass.text);
-                              Navigator.of(context).pushReplacementNamed(
-                                  AppRoutes.objectivesPage);
+                              await auth
+                                  .signUp(authEmail.text, authPass.text)
+                                  .then((_) {
+                                Navigator.of(context).pushReplacementNamed(
+                                    AppRoutes.objectivesPage);
+                              });
                             } on AuthException catch (error) {
                               showDialog(
                                 context: context,
                                 builder: (ctx) => AlertDialog(
+                                  shape: const RoundedRectangleBorder(
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(32.0)),
+                                  ),
+                                  contentPadding: const EdgeInsets.all(10),
                                   title: const Text('Ocorreu um erro'),
                                   content: Text(error.toString()),
                                   actions: [

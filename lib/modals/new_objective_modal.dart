@@ -178,6 +178,12 @@ class _NewObjectiveModalState extends State<NewObjectiveModal> {
                                 await showDialog<void>(
                                     context: context,
                                     builder: (ctx) => AlertDialog(
+                                          shape: const RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.all(
+                                                Radius.circular(32.0)),
+                                          ),
+                                          contentPadding:
+                                              const EdgeInsets.all(10),
                                           title: const Text("Ocorreu um erro!"),
                                           actions: [
                                             TextButton(

@@ -5,7 +5,15 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 
 class ObjectiveList with ChangeNotifier {
-  final List<Objective> _objectiveList = [];
+  List<Objective> _objectiveList;
+  String _token;
+  String _userId;
+
+  ObjectiveList([
+    this._token = '',
+    this._objectiveList = const [],
+    this._userId = '',
+  ]);
 
   List<Objective> get items {
     return [..._objectiveList];
@@ -16,36 +24,45 @@ class ObjectiveList with ChangeNotifier {
   }
 
   Future<void> loadObjectives() async {
-    final response = await get(Uri.parse(Constants.OBJECTIVES_DATABASE_PATH));
-    Map<String, dynamic> data = jsonDecode(response.body);
-    if (response.body == 'null') {
-      return;
-    }
-    data.forEach(
-      (objectiveId, objectiveValue) {
-        _objectiveList.add(Objective(
-          id: objectiveId,
-          name: objectiveValue['name'],
-          currentValue: objectiveValue['currentValue'],
-          goal: objectiveValue['goal'],
-          updatedAt: DateTime.parse(objectiveValue['updatedAt']),
-          createdAt: DateTime.parse(objectiveValue['createdAt']),
-        ));
+    final response = await get(Uri.parse(
+            '${Constants.OBJECTIVES_DATABASE_PATH}/$_userId.json?auth=$_token'))
+        .then(
+      (response) {
+        if (response.body == 'null') {
+          return;
+        } else {
+          Map<String, dynamic> data = jsonDecode(response.body);
+          data.forEach(
+            (objectiveId, objectiveValue) {
+              _objectiveList.add(Objective(
+                id: objectiveId,
+                name: objectiveValue['name'],
+                currentValue: objectiveValue['currentValue'],
+                goal: objectiveValue['goal'],
+                updatedAt: DateTime.parse(objectiveValue['updatedAt']),
+                createdAt: DateTime.parse(objectiveValue['createdAt']),
+              ));
+            },
+          );
+          notifyListeners();
+        }
       },
     );
-    notifyListeners();
   }
 
   Future<void> addObjective(Objective objective) async {
     final response = await post(
-      Uri.parse(Constants.OBJECTIVES_DATABASE_PATH),
-      body: jsonEncode({
-        "name": objective.name,
-        "currentValue": objective.currentValue,
-        "goal": objective.goal,
-        "updatedAt": objective.updatedAt.toString(),
-        "createdAt": objective.createdAt.toString()
-      }),
+      Uri.parse(
+          '${Constants.OBJECTIVES_DATABASE_PATH}/$_userId.json?auth=$_token'),
+      body: jsonEncode(
+        {
+          "name": objective.name,
+          "currentValue": objective.currentValue,
+          "goal": objective.goal,
+          "updatedAt": objective.updatedAt.toIso8601String(),
+          "createdAt": objective.createdAt.toIso8601String(),
+        },
+      ),
     );
 
     final id = jsonDecode(response.body)['name'];
@@ -62,23 +79,51 @@ class ObjectiveList with ChangeNotifier {
     notifyListeners();
   }
 
-  void increaseObjective(String objectiveId) {
+  void increaseObjective(String objectiveId) async {
     Objective objectiveItem = _objectiveList[
         _objectiveList.indexWhere((element) => element.id == objectiveId)];
+
     if (objectiveItem.currentValue < objectiveItem.goal) {
       objectiveItem.currentValue += 1;
       objectiveItem.updatedAt = DateTime.now();
-      notifyListeners();
+      await patch(
+        Uri.parse(
+            '${Constants.OBJECTIVES_DATABASE_PATH}/$_userId/$objectiveId.json?auth=$_token'),
+        body: jsonEncode(
+          {
+            "currentValue": objectiveItem.currentValue,
+            "updatedAt": objectiveItem.updatedAt.toIso8601String(),
+          },
+        ),
+      ).then((_) {
+        notifyListeners();
+      });
     }
   }
 
-  void decreaseObjective(String objectiveId) {
+  void decreaseObjective(String objectiveId) async {
     Objective objectiveItem = _objectiveList[
         _objectiveList.indexWhere((element) => element.id == objectiveId)];
+
     if (objectiveItem.currentValue > 0) {
       objectiveItem.currentValue -= 1;
       objectiveItem.updatedAt = DateTime.now();
-      notifyListeners();
+      await patch(
+        Uri.parse(
+            '${Constants.OBJECTIVES_DATABASE_PATH}/$_userId/$objectiveId.json?auth=$_token'),
+        body: jsonEncode(
+          {
+            "currentValue": objectiveItem.currentValue,
+            "updatedAt": objectiveItem.updatedAt.toIso8601String(),
+          },
+        ),
+      ).then((_) {
+        notifyListeners();
+      });
     }
+  }
+
+  void clearList() {
+    _objectiveList = [];
   }
 }

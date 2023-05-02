@@ -1,5 +1,6 @@
 import 'package:Objectives_Manager/components/objective_item.dart';
 import 'package:Objectives_Manager/models/objective_list.dart';
+import 'package:Objectives_Manager/utils/app_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../modals/new_objective_modal.dart';
@@ -45,60 +46,57 @@ class _ObjectivesPageState extends State<ObjectivesPage> {
           shadowColor: Colors.transparent,
           titleSpacing: 10,
           centerTitle: false,
-          leading: Padding(
-            padding: const EdgeInsets.only(left: 15),
-            child: Container(
-              decoration: BoxDecoration(
-                color: Colors.cyanAccent.shade700,
-                shape: BoxShape.circle,
-              ),
-              padding: const EdgeInsets.all(3),
-              child: const CircleAvatar(
-                backgroundImage: AssetImage("assets/profile_photo.jpg"),
+          leading: GestureDetector(
+            onTap: () => Navigator.pushNamed(context, AppRoutes.profilePage),
+            child: Padding(
+              padding: const EdgeInsets.only(left: 15),
+              child: Container(
+                decoration: BoxDecoration(
+                  color: Colors.cyanAccent.shade700,
+                  shape: BoxShape.circle,
+                ),
+                padding: const EdgeInsets.all(3),
+                child: const FittedBox(
+                  child: CircleAvatar(
+                    backgroundImage: AssetImage("assets/profile_photo.png"),
+                  ),
+                ),
               ),
             ),
           ),
-          title: Text(
-            "Olá, Messias",
-            style: TextStyle(
-              color: Colors.cyanAccent.shade700,
-              fontWeight: FontWeight.bold,
+          title: GestureDetector(
+            onTap: () => Navigator.pushNamed(context, AppRoutes.profilePage),
+            child: Text(
+              "Olá, Messias",
+              style: TextStyle(
+                color: Colors.cyanAccent.shade700,
+                fontWeight: FontWeight.bold,
+              ),
             ),
           ),
           actions: [
-            IconButton(
-              splashRadius: 20,
-              splashColor: Colors.white,
-              highlightColor: Colors.cyanAccent.shade700.withOpacity(0.3),
-              onPressed: () {
-                showModalBottomSheet(
-                  isScrollControlled: true,
-                  context: context,
-                  builder: (BuildContext context) {
-                    return Padding(
-                      padding: EdgeInsets.only(
-                          bottom: MediaQuery.of(context).viewInsets.bottom),
-                      child: const NewObjectiveModal(),
-                    );
-                  },
-                );
-              },
-              icon: Icon(
-                Icons.add,
-                size: 30,
-                color: Colors.cyanAccent.shade700,
-              ),
-            ),
             Padding(
-              padding: const EdgeInsets.only(right: 12),
+              padding: const EdgeInsets.fromLTRB(8, 3, 20, 0),
               child: IconButton(
                 splashRadius: 20,
                 splashColor: Colors.white,
                 highlightColor: Colors.cyanAccent.shade700.withOpacity(0.3),
-                onPressed: () {},
+                onPressed: () {
+                  showModalBottomSheet(
+                    isScrollControlled: true,
+                    context: context,
+                    builder: (BuildContext context) {
+                      return Padding(
+                        padding: EdgeInsets.only(
+                            bottom: MediaQuery.of(context).viewInsets.bottom),
+                        child: const NewObjectiveModal(),
+                      );
+                    },
+                  );
+                },
                 icon: Icon(
-                  Icons.filter_alt,
-                  size: 25,
+                  Icons.add,
+                  size: 35,
                   color: Colors.cyanAccent.shade700,
                 ),
               ),

@@ -105,13 +105,20 @@ class PasswordRecoveryPage extends StatelessWidget {
                       onTap: () async {
                         if (formKey.currentState!.validate()) {
                           try {
-                            await auth.recoveryPassword(recoveryEmail.text);
-                            Navigator.of(context)
-                                .pushReplacementNamed(AppRoutes.loginPage);
+                            await auth
+                                .recoveryPassword(recoveryEmail.text)
+                                .then((_) {
+                              Navigator.of(context).pop();
+                            });
                           } on AuthException catch (error) {
                             showDialog(
                               context: context,
                               builder: (ctx) => AlertDialog(
+                                shape: const RoundedRectangleBorder(
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(32.0)),
+                                ),
+                                contentPadding: EdgeInsets.all(10),
                                 title: const Text('Ocorreu um erro'),
                                 content: Text(error.toString()),
                                 actions: [

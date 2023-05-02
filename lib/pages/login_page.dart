@@ -9,7 +9,7 @@ import '../models/auth.dart';
 class LoginPage extends StatelessWidget {
   LoginPage({super.key});
 
-  static final formKey = GlobalKey<FormState>();
+  static final formLoginKey = GlobalKey<FormState>();
 
   final TextEditingController authEmail = TextEditingController();
   final TextEditingController authPass = TextEditingController();
@@ -38,7 +38,7 @@ class LoginPage extends StatelessWidget {
             children: [
               Container(
                 width: double.infinity,
-                height: height * 0.37,
+                height: height * 0.45,
                 padding: const EdgeInsets.fromLTRB(30, 50, 100, 50),
                 child: FittedBox(
                   fit: BoxFit.fitWidth,
@@ -78,7 +78,7 @@ class LoginPage extends StatelessWidget {
                 ),
               ),
               Container(
-                height: height * 0.63,
+                height: height * 0.65,
                 width: double.infinity,
                 padding: const EdgeInsets.all(30),
                 decoration: const BoxDecoration(
@@ -88,7 +88,7 @@ class LoginPage extends StatelessWidget {
                   ),
                 ),
                 child: Form(
-                  key: formKey,
+                  key: formLoginKey,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -145,15 +145,18 @@ class LoginPage extends StatelessWidget {
                       ),
                       GestureDetector(
                         onTap: () async {
-                          if (formKey.currentState!.validate()) {
+                          if (formLoginKey.currentState!.validate()) {
                             try {
                               await auth.signIn(authEmail.text, authPass.text);
-                              Navigator.of(context).pushReplacementNamed(
-                                  AppRoutes.objectivesPage);
                             } on AuthException catch (error) {
                               showDialog(
                                 context: context,
                                 builder: (ctx) => AlertDialog(
+                                  shape: const RoundedRectangleBorder(
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(32.0)),
+                                  ),
+                                  contentPadding: EdgeInsets.all(10),
                                   title: const Text('Ocorreu um erro'),
                                   content: Text(error.toString()),
                                   actions: [
