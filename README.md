@@ -1,16 +1,18 @@
-# app_05
+# App Meus Objetivos
 
-A new Flutter project.
+My fifth app made with Dart/Flutter! 🚀
 
-## Getting Started
+In it I learned about:
+* How to connect the app with Firebase
+* How to use Firestore to store real-time data
+* How to use CircularProgressIndicator as feedback for user while request data from Firebase
+* How to use ImagePicker
+* How to persist locally the user login
+* How to use CircleAvater to get a rounded profile picture
+* How to use the LinearGradient to stylish the items in the list
 
-This project is a starting point for a Flutter application.
+<!-- Some screenshots: -->
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+<!-- Home Screen               | Drawer                     | Cart Screen               | Order Screen              | Product Detail Screen
+:-------------------------:|:-------------------------:|:-------------------------:|:-------------------------:|:-------------------------:
+<img src="https://github.com/soumessias/flutter_learning_05/blob/master/screenshots/01.png" width="200">  |  <img src="https://github.com/soumessias/flutter_learning_05/blob/master/screenshots/02.png" width="200"> | <img src="https://github.com/soumessias/flutter_learning_05/blob/master/screenshots/03.png" width="200"> | <img src="https://github.com/soumessias/flutter_learning_05/blob/master/screenshots/04.png" width="200"> | <img src="https://github.com/soumessias/flutter_learning_05/blob/master/screenshots/05.png" width="200"> -->
