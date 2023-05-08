@@ -16,3 +16,5 @@ In it I learned about:
 <!-- Home Screen               | Drawer                     | Cart Screen               | Order Screen              | Product Detail Screen
 :-------------------------:|:-------------------------:|:-------------------------:|:-------------------------:|:-------------------------:
 <img src="https://github.com/soumessias/flutter_learning_05/blob/master/screenshots/01.png" width="200">  |  <img src="https://github.com/soumessias/flutter_learning_05/blob/master/screenshots/02.png" width="200"> | <img src="https://github.com/soumessias/flutter_learning_05/blob/master/screenshots/03.png" width="200"> | <img src="https://github.com/soumessias/flutter_learning_05/blob/master/screenshots/04.png" width="200"> | <img src="https://github.com/soumessias/flutter_learning_05/blob/master/screenshots/05.png" width="200"> -->
+
+*ps: Especially for this project, I didn't release the lib folder due to the app being available in stores
