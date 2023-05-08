@@ -1,28 +1,55 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:Objectives_Manager/models/auth.dart';
 import 'package:Objectives_Manager/models/objective_list.dart';
 import 'package:Objectives_Manager/utils/constants.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 import 'package:provider/provider.dart';
 import '../components/login_text_field.dart';
 
-class ProfilePage extends StatelessWidget {
-  ProfilePage({super.key});
+class ProfilePage extends StatefulWidget {
+  const ProfilePage({super.key});
 
   static final formKey = GlobalKey<FormState>();
 
+  @override
+  State<ProfilePage> createState() => _ProfilePageState();
+}
+
+class _ProfilePageState extends State<ProfilePage> {
   final TextEditingController nickname = TextEditingController();
+
   final TextEditingController feedback = TextEditingController();
+
+  File? profileImage;
+
+  getPicture() async {
+    try {
+      final pickedFile =
+          await ImagePicker().pickImage(source: ImageSource.gallery);
+      if (pickedFile != null) {
+        setState(() {
+          profileImage = File(pickedFile.path);
+        });
+      }
+    } catch (e) {
+      print('Erro ao selecionar imagem: $e');
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height -
         AppBar().preferredSize.height -
         MediaQuery.of(context).padding.top;
+
     Auth auth = Provider.of(context, listen: false);
+
     ObjectiveList objectiveList = Provider.of(context);
+
     return Padding(
       padding:
           EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
@@ -57,9 +84,15 @@ class ProfilePage extends StatelessWidget {
                       shape: BoxShape.circle,
                     ),
                     padding: const EdgeInsets.all(5),
-                    child: const FittedBox(
-                      child: CircleAvatar(
-                        backgroundImage: AssetImage("assets/profile_photo.png"),
+                    child: FittedBox(
+                      child: GestureDetector(
+                        onTap: () => getPicture(),
+                        child: CircleAvatar(
+                          backgroundImage: profileImage != null
+                              ? FileImage(profileImage!)
+                                  as ImageProvider<Object>
+                              : const AssetImage("assets/profile_photo.png"),
+                        ),
                       ),
                     ),
                   ),
@@ -91,7 +124,7 @@ class ProfilePage extends StatelessWidget {
                       height: 20,
                     ),
                     Form(
-                      key: formKey,
+                      key: ProfilePage.formKey,
                       child: LoginTextField(
                         controller: nickname,
                         hintText: 'Messias',
@@ -110,7 +143,7 @@ class ProfilePage extends StatelessWidget {
                     ),
                     GestureDetector(
                       onTap: () async {
-                        if (formKey.currentState!.validate()) {
+                        if (ProfilePage.formKey.currentState!.validate()) {
                           Navigator.of(context).pop();
                         }
                       },

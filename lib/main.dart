@@ -46,7 +46,7 @@ class MyApp extends StatelessWidget {
           AppRoutes.objectivesPage: (context) => const ObjectivesPage(),
           AppRoutes.signupPage: (context) => SignUpPage(),
           AppRoutes.passRecoveryPage: (context) => PasswordRecoveryPage(),
-          AppRoutes.profilePage: (context) => ProfilePage(),
+          AppRoutes.profilePage: (context) => const ProfilePage(),
         },
       ),
     );
